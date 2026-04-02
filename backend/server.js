@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const xlsx = require('xlsx');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -125,6 +127,18 @@ app.post('/api/check-iframe', async (req, res) => {
     res.json({ canEmbed: false, error: 'Failed to reach URL' });
   }
 });
+
+const FRONTEND_DIST_PATH = path.resolve(__dirname, '../frontend/dist');
+
+if (fs.existsSync(FRONTEND_DIST_PATH)) {
+  app.use(express.static(FRONTEND_DIST_PATH));
+
+  app.use((req, res, next) => {
+    if (req.method !== 'GET') return next();
+    if (req.path.startsWith('/api') || req.path === '/health') return next();
+    return res.sendFile(path.join(FRONTEND_DIST_PATH, 'index.html'));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
