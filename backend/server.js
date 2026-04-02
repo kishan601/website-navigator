@@ -5,8 +5,11 @@ const xlsx = require('xlsx');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const CORS_ORIGIN = process.env.CORS_ORIGIN;
 
-app.use(cors());
+app.use(cors({
+  origin: CORS_ORIGIN ? CORS_ORIGIN.split(',').map(origin => origin.trim()) : '*'
+}));
 app.use(express.json());
 
 // Configure multer for file upload
@@ -22,6 +25,10 @@ const isValidUrl = (string) => {
     return false;
   }
 };
+
+app.get('/health', (_req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
 app.post('/api/upload', upload.single('file'), (req, res) => {
   if (!req.file) {

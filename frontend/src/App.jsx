@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Upload, ChevronLeft, ChevronRight, FileSpreadsheet, Loader2, AlertCircle } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 function App() {
   const [file, setFile] = useState(null);
   const [urls, setUrls] = useState([]);
@@ -20,7 +22,7 @@ function App() {
       
       try {
         const currentUrl = urls[currentIndex];
-        const response = await axios.post('http://localhost:5000/api/check-iframe', {
+        const response = await axios.post(`${API_BASE_URL}/api/check-iframe`, {
           url: currentUrl
         });
         
@@ -60,7 +62,7 @@ function App() {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
