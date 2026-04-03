@@ -56,11 +56,30 @@ This project automates that workflow while keeping the UI clean and responsive.
 ```text
 Website-Navigator/
 ├── backend/
+│   ├── src/
+│   │   ├── app.js
+│   │   ├── controllers/
+│   │   │   ├── iframeController.js
+│   │   │   └── uploadController.js
+│   │   ├── routes/
+│   │   │   └── apiRoutes.js
+│   │   ├── services/
+│   │   │   ├── iframeService.js
+│   │   │   └── urlExtractionService.js
+│   │   └── utils/
+│   │       └── urlUtils.js
 │   ├── server.js
 │   ├── package.json
 │   └── package-lock.json
 ├── frontend/
 │   ├── src/
+│   │   ├── components/
+│   │   │   ├── AppHeader.jsx
+│   │   │   ├── ErrorAlert.jsx
+│   │   │   ├── UploadSection.jsx
+│   │   │   └── WebsiteViewer.jsx
+│   │   ├── config/
+│   │   │   └── api.js
 │   │   ├── App.jsx
 │   │   ├── index.css
 │   │   └── main.jsx
@@ -298,9 +317,26 @@ And does so without yelling at users in developer jargon.
 
 ---
 
+## Submission Assets
+
+### Screenshots
+- `screenshots/01-upload-screen.png` (upload state)
+- `screenshots/02-viewer-desktop.png` (viewer with URL bar + bottom navigation)
+- `screenshots/03-viewer-mobile.png` (responsive mobile layout)
+- `screenshots/04-blocked-site-fallback.png` (Open in new tab fallback)
+
+### Demo Video
+- `demo/website-navigator-demo.mp4`
+- Suggested flow:
+  - Upload sample file
+  - Move across links using bottom Previous/Next buttons
+  - Show responsive behavior on narrow viewport
+  - Show blocked iframe case and Open in new tab action
+
+---
+
 ## Final Note
 
 If your spreadsheet has 200 links and your patience has 3, this app was built for you.
 
 Happy navigating.
-
